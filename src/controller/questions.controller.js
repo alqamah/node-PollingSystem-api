@@ -1,20 +1,28 @@
 import {Question} from '../model/schema.js';
 
+
+//handling the create-question route
 export const createQuestion = async (req, res) => {
   try {
+    //getting the data from the request body
     const { text, options } = req.body;
+    //creating a new question object
     const question = new Question({ text, options });
     await question.save();
+    //returning the response
     res.status(201).json(question);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
 
+//handling the route to create a new option for a question
 export const addOption = async (req, res) => {
   try {
     const { text } = req.body;
+    //retrieving the question from the db
     const question = await Question.findById(req.params.id);
+    //inserting the new option in the options array of the question object
     question.options.push({ text });
     await question.save();
     res.status(200).json(question);
@@ -23,6 +31,7 @@ export const addOption = async (req, res) => {
   }
 };
 
+//handling the deletion of question
 export const deleteQuestion = async (req, res) => {
   try {
     const question = await Question.findByIdAndDelete(req.params.id);
@@ -33,6 +42,7 @@ export const deleteQuestion = async (req, res) => {
   }
 };
 
+//handling the deletion of option
 export const deleteOption = async (req, res) => {
   try {
     const question = await Question.findOneAndUpdate(
@@ -48,6 +58,7 @@ export const deleteOption = async (req, res) => {
   }
 };
 
+//handling the add-vote to the option
 export const addVote = async (req, res) => {
   try {
     const question = await Question.findOneAndUpdate(
@@ -63,12 +74,13 @@ export const addVote = async (req, res) => {
   }
 };
 
+//handling the get-question route
 export const getQuestion = async (req, res) => {
   try {
     const question = await Question.findById(req.params.id).lean();
     if (!question) return res.status(404).json({ error: 'Question not found' });
 
-    // Populate the link_to_vote field dynamically
+    // Populating the link_to_vote field
     question.options = question.options.map(option => ({
       ...option,
       link_to_vote: `http://localhost:3000/questions/options/${question._id}/${option._id}/add_vote`
@@ -80,6 +92,7 @@ export const getQuestion = async (req, res) => {
   }
 };
 
+//get-all questions route
 export const getAllQuestion = async (req, res) => {
     try {
       const questions = await Question.find({});

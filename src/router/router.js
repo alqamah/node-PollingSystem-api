@@ -11,6 +11,7 @@ import {
 
 const router = express.Router();
 
+//haandling the routes 
 router.post('/create', createQuestion);
 router.post('/:id/options/create', addOption);
 router.delete('/:id', deleteQuestion);
