@@ -71,7 +71,7 @@ export const getQuestion = async (req, res) => {
     // Populate the link_to_vote field dynamically
     question.options = question.options.map(option => ({
       ...option,
-      link_to_vote: `http://localhost:3000/options/${option._id}/add_vote?questionId=${question._id}`
+      link_to_vote: `http://localhost:3000/questions/options/${question._id}/${option._id}/add_vote`
     }));
 
     res.status(200).json(question);

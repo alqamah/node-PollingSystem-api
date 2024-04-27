@@ -15,7 +15,7 @@ router.post('/create', createQuestion);
 router.post('/:id/options/create', addOption);
 router.delete('/:id', deleteQuestion);
 router.delete('/:questionId/options/:optionId', deleteOption);
-router.put('/options/:questionId/:optionId/add_vote', addVote);
+router.get('/options/:questionId/:optionId/add_vote', addVote);
 router.get('/:id', getQuestion);
 router.get('/', getAllQuestion);
 
