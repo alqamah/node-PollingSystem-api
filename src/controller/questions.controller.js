@@ -22,6 +22,7 @@ export const addOption = async (req, res) => {
     const { text } = req.body;
     //retrieving the question from the db
     const question = await Question.findById(req.params.id);
+    if(!question) res.status(404).json({ error: 'Question not found (or invalid Question-ID entered in URL)' });
     //inserting the new option in the options array of the question object
     question.options.push({ text });
     await question.save();
