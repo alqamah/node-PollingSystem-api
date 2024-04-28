@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 //mongo-db connection config
-mongoose.connect(process.env.mongodb_url)
+mongoose.connect(process.env.MONGOURL)
   .then(() => {
     console.log('Connected to MongoDB');
     //starting the server
