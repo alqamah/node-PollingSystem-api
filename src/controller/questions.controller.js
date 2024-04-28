@@ -12,6 +12,7 @@ export const createQuestion = async (req, res) => {
     //returning the response
     res.status(201).json(question);
   } catch (err) {
+    console.log(err.message);
     res.status(400).json({ error: err.message });
   }
 };
@@ -28,6 +29,7 @@ export const addOption = async (req, res) => {
     await question.save();
     res.status(200).json(question);
   } catch (err) {
+    console.log(err.message);
     res.status(400).json({ error: err.message });
   }
 };
@@ -39,6 +41,7 @@ export const deleteQuestion = async (req, res) => {
     if (!question) return res.status(404).json({ error: 'Question not found' });
     res.status(200).json({ message: 'Question deleted successfully' });
   } catch (err) {
+    console.log(err.message);
     res.status(400).json({ error: err.message });
   }
 };
@@ -89,6 +92,7 @@ export const getQuestion = async (req, res) => {
 
     res.status(200).json(question);
   } catch (err) {
+    console.log(err.message);
     res.status(400).json({ error: err.message });
   }
 };
@@ -100,6 +104,7 @@ export const getAllQuestion = async (req, res) => {
       if (!questions) return res.status(404).json({ error: 'Questions not found' });  
       res.status(200).json(questions);
     } catch (err) {
+      console.log(err.message);
       res.status(400).json({ error: err.message });
     }
 };

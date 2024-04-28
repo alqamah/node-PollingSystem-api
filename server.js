@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 import app from './src/app.js';
+import dotenv from 'dotenv';
 
+dotenv.config();
 //mongo-db connection config
-mongoose.connect('mongodb://localhost/polling-system')
+mongoose.connect(process.env.mongodb_url)
   .then(() => {
     console.log('Connected to MongoDB');
     //starting the server
